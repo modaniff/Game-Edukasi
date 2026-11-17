@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Pengetahuan - Game Edukasi SD</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-wood: #8B4513;
+            --wood-dark: #5c2c09;
+            --wood-light: #DEB887;
+            --jungle-green: #2e7d32;
+            --accent-yellow: #ffca28;
+            --btn-green: #4CAF50;
+            --btn-blue: #0288D1;
+            --btn-orange: #FF9800;
+            --btn-purple: #7B1FA2;
+        }
+
+        /* Lock Screen Full Page */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Fredoka', cursive, sans-serif;
+            user-select: none;
+        }
+
+        /* Jungle Background Container */
+        .jungle-bg {
+            background-color: #74c69d;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(45, 106, 79, 0.3) 0%, transparent 50%),
+                url('image/749.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.3);
+            transition: background 0.4s ease-in-out;
+            overflow: hidden;
+        }
+
+        /* Floating Leaves Animation Background */
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #2d6a4f;
+            border-radius: 0 70%;
+            opacity: 0.3;
+            animation: float 10s infinite linear;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.5; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Wooden Header Board */
+        .wood-board {
+            background: linear-gradient(180deg, #b06d3b 0%, #7c4015 100%);
+            border: 5px solid #4a240a;
+            border-radius: 20px;
+            box-shadow: 0 8px 0 #321705, 0 12px 20px rgba(0,0,0,0.4);
+            padding: 10px 25px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .wood-board::before, .wood-board::after {
+            content: '\f06c';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #81c784;
+            position: absolute;
+            font-size: 1.8rem;
+            top: -10px;
+        }
+        .wood-board::before { left: -15px; transform: rotate(-20deg); }
+        .wood-board::after { right: -15px; transform: rotate(20deg); }
+
+        .wood-title {
+            color: #FFF8DC;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 3px 3px 0 #321705, -2px -2px 0 #321705, 2px -2px 0 #321705, -2px 2px 0 #321705;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        /* Wooden Footer Banner */
+        .wood-footer {
+            background: linear-gradient(180deg, #d49a6a 0%, #9e5f30 100%);
+            border: 4px solid #4a240a;
+            border-radius: 15px;
+            box-shadow: 0 5px 0 #321705;
+            padding: 6px 20px;
+            color: #fff;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px #000;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        /* Main Menu Cards */
+        .menu-card {
+            background: #fff8eb;
+            border: 4px solid #d4a373;
+            border-radius: 25px;
+            box-shadow: 0 8px 0 #b07d4f, 0 12px 18px rgba(0,0,0,0.25);
+            padding: 15px 10px 12px 10px;
+            text-align: center;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 14px 0 #b07d4f, 0 16px 25px rgba(0,0,0,0.3);
+        }
+
+        .menu-card:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #b07d4f;
+        }
+
+        .icon-box {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 3px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .menu-card:hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Custom Buttons */
+        .btn-custom {
+            width: 100%;
+            border-radius: 15px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 1px 2px 0 rgba(0,0,0,0.4);
+            border: none;
+            padding: 8px 5px;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-mulai { background: linear-gradient(180deg, #66bb6a 0%, #388e3c 100%); box-shadow: 0 5px 0 #1b5e20; }
+        .btn-materi { background: linear-gradient(180deg, #29b6f6 0%, #0288d1 100%); box-shadow: 0 5px 0 #01579b; }
+        .btn-kuis { background: linear-gradient(180deg, #ffa726 0%, #f57c00 100%); box-shadow: 0 5px 0 #e65100; }
+        .btn-permainan { background: linear-gradient(180deg, #ab47bc 0%, #7b1fa2 100%); box-shadow: 0 5px 0 #4a148c; }
+
+        /* General Content Container */
+        .game-window {
+            background: rgba(255, 255, 255, 0.96);
+            border: 6px solid #5c2c09;
+            border-radius: 30px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            padding: 20px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .btn-back {
+            background: #ef5350;
+            color: white;
+            border: 3px solid #b71c1c;
+            box-shadow: 0 4px 0 #b71c1c;
+            border-radius: 15px;
+            font-weight: bold;
+            padding: 6px 16px;
+        }
+
+        .btn-back:hover {
+            background: #e53935;
+            color: white;
+        }
+
+        /* Quiz Styling */
+        .quiz-option {
+            background: #f8f9fa;
+            border: 3px solid #dee2e6;
+            border-radius: 18px;
+            padding: 12px 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 0 #ced4da;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .quiz-option:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background-color: #c8e6c9 !important;
+            border-color: #2e7d32 !important;
+            color: #1b5e20 !important;
+            box-shadow: 0 4px 0 #2e7d32 !important;
+        }
+
+        .quiz-option.wrong {
+            background-color: #ffcdd2 !important;
+            border-color: #c62828 !important;
+            color: #b71c1c !important;
+            box-shadow: 0 4px 0 #c62828 !important;
+        }
+
+        .heart-icon {
+            color: #e53935;
+            font-size: 1.4rem;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+        }
+
+        /* Memory Game Cards */
+        .memory-card {
+            height: 85px;
+            background: #ffb74d;
+            border: 4px solid #f57c00;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #e65100;
+            transition: transform 0.3s ease;
+        }
+
+        .memory-card.flipped {
+            background: #ffffff;
+            border-color: #42a5f5;
+            box-shadow: 0 5px 0 #1e88e5;
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            background: #a5d6a7;
+            border-color: #388e3c;
+            box-shadow: none;
+            opacity: 0.8;
+            cursor: default;
+        }
+
+        /* Utility classes */
+        .hidden { display: none !important; }
+
+        /* Custom Tab Styling */
+        .nav-pills-custom .nav-link-custom {
+            border-radius: 12px;
+            padding: 8px 14px;
+            font-weight: 700;
+            color: #555;
+            background: #f1f3f5;
+            border: 2px solid #dee2e6;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-pills-custom .nav-link-custom.active {
+            background: #0288d1;
+            color: white;
+            border-color: #01579b;
+            box-shadow: 0 4px 0 #01579b;
+        }
+
+        @media (max-width: 768px) {
+            .wood-title { font-size: 1.5rem; }
+            .icon-box { font-size: 2.8rem; }
+            .btn-custom { font-size: 0.95rem; }
+        }
+        
+        .powered-by-text {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    margin-top: 4px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="jungle-bg" id="jungleBg">
+
+        <!-- Floating Leaf Animations -->
+        <div class="leaf" style="left: 10%; animation-duration: 12s;"></div>
+        <div class="leaf" style="left: 30%; animation-duration: 8s; animation-delay: 2s;"></div>
+        <div class="leaf" style="left: 70%; animation-duration: 10s; animation-delay: 1s;"></div>
+        <div class="leaf" style="left: 85%; animation-duration: 14s; animation-delay: 3s;"></div>
+
+        <div class="container main-container py-2">
+            
+            <!-- HEADER BAR WOODEN BOARD -->
+            <div class="row justify-content-center">
+                <div class="col-auto text-center">
+                    <div class="wood-board">
+                        <h1 class="wood-title"><i class="fa-solid fa-compass me-2"></i>PETUALANGAN PENGETAHUAN</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 1: MENU UTAMA -->
+            <div id="view-main-menu" class="row g-3 justify-content-center align-items-center my-auto">
+                
+                <!-- CARD 1: MULAI (GAME MATEMATIKA BERHITUNG) -->
+                <div class="col-6 col-md-3">
+                    <div class="menu-card" onclick="openSection('mulai')">
+                        <div class="icon-box text-success">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <button class="btn btn-custom btn-mulai">MARI BERHITUNG</button>
+                    </div>
+                </div>
+
+                <!-- CARD 2: KUIS (KUIS PENGETAHUAN UMUM) -->
+                <div class="col-6 col-md-3">
+                    <div class="menu-card" onclick="openSection('kuis')">
+                        <div class="icon-box text-warning">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <button class="btn btn-custom btn-kuis">KUIS</button>
+                    </div>
+                </div>
+
+                <!-- CARD 3: PERMAINAN -->
+                <div class="col-6 col-md-3">
+                    <div class="menu-card" onclick="openSection('permainan')">
+                        <div class="icon-box text-primary">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <button class="btn btn-custom btn-permainan">AYO COCOKKAN</button>
+                    </div>
+                </div>
+
+                 <!-- CARD 4: MATERI -->
+                <div class="col-6 col-md-3">
+                    <div class="menu-card" onclick="openSection('materi')">
+                        <div class="icon-box text-danger">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <button class="btn btn-custom btn-materi">AYO BACA SEDIKIT</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIEW 2: MODUL MATERI PEMBELAJARAN -->
+            <div id="view-materi" class="game-window hidden my-auto">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="fw-bold text-success m-0"><i class="fa-solid fa-book-open me-2"></i>AYO BACA SEDIKIT</h2>
+                    <button class="btn btn-back" onclick="showMainMenu()"><i class="fa-solid fa-house me-1"></i> Kembali</button>
+                </div>
+                
+                <!-- Nav Tab Header -->
+                <div class="d-flex flex-wrap gap-2 mb-3 nav-pills-custom">
+                    <button class="nav-link-custom active" onclick="switchMateriTab('ipa', this)">
+                        <i class="fa-solid fa-seedling me-1"></i> IPA - Daur Hidup
+                    </button>
+                    <button class="nav-link-custom" onclick="switchMateriTab('hewan', this)">
+                        <i class="fa-solid fa-hippo me-1"></i> IPA - Jenis Hewan
+                    </button>
+                    <button class="nav-link-custom" onclick="switchMateriTab('ips', this)">
+                        <i class="fa-solid fa-earth-americas me-1"></i> IPA - Tata Surya
+                    </button>
+                    <button class="nav-link-custom" onclick="switchMateriTab('pkn', this)">
+                        <i class="fa-solid fa-flag me-1"></i> PKN - 5 Sila Pancasila
+                    </button>
+                    <button class="nav-link-custom" onclick="switchMateriTab('mtk', this)">
+                        <i class="fa-solid fa-calculator me-1"></i> MTK - Berhitung
+                    </button>
+                </div>
+
+                <!-- Tab Content Area -->
+                <div class="p-2">
+                    <!-- 1. IPA Content: Daur Hidup -->
+                    <div id="tab-materi-ipa" class="materi-tab-pane">
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <h3 class="text-primary fw-bold">Daur Hidup Kupu-Kupu <i class="fa-solid fa-bug text-warning ms-1"></i></h3>
+                                <p class="fs-6">Kupu-kupu mengalami metamorfosis sempurna yang terdiri dari 4 tahapan:</p>
+                                <ol class="fs-6 lh-lg">
+                                    <li><strong>Telur:</strong> Kupu-kupu meletakkan telurnya di atas daun.</li>
+                                    <li><strong>Ulat (Larva):</strong> Telur menetas menjadi ulat yang suka makan daun segar.</li>
+                                    <li><strong>Kepompong (Pupa):</strong> Ulat membungkus dirinya menjadi kepompong untuk beristirahat.</li>
+                                    <li><strong>Kupu-kupu Dewasa:</strong> Keluar dari kepompong menjadi kupu-kupu yang indah!</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-5 text-center">
+                                <div class="p-3 bg-warning bg-opacity-25 rounded-4 border border-warning">
+                                    <div class="d-flex justify-content-center align-items-center fs-2 mb-2 gap-2 text-primary">
+                                        <i class="fa-solid fa-egg text-warning"></i>
+                                        <i class="fa-solid fa-arrow-right fs-6 text-muted"></i>
+                                        <i class="fa-solid fa-worm text-success"></i>
+                                        <i class="fa-solid fa-arrow-right fs-6 text-muted"></i>
+                                        <i class="fa-solid fa-box-archive text-secondary"></i>
+                                        <i class="fa-solid fa-arrow-right fs-6 text-muted"></i>
+                                        <i class="fa-solid fa-bug text-danger"></i>
+                                    </div>
+                                    <span class="badge bg-success fs-6">Metamorfosis Sempurna</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. IPA Content: Jenis Makanan Hewan -->
+                    <div id="tab-materi-hewan" class="materi-tab-pane hidden">
+                        <h3 class="text-primary fw-bold mb-3">Penggolongan Hewan Berdasarkan Makanan <i class="fa-solid fa-paw text-danger ms-1"></i></h3>
+                        <div class="row g-3 text-center">
+                            <div class="col-md-4">
+                                <div class="p-3 bg-danger bg-opacity-10 border border-danger rounded-4 h-100">
+                                    <i class="fa-solid fa-drumstick-bite fs-1 text-danger mb-2"></i>
+                                    <h4 class="fw-bold text-danger">Karnivora</h4>
+                                    <p class="fs-6">Hewan pemakan <strong>daging</strong>.</p>
+                                    <span class="badge bg-danger fs-6">Contoh: Singa, Harimau, Elang</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-success bg-opacity-10 border border-success rounded-4 h-100">
+                                    <i class="fa-solid fa-leaf fs-1 text-success mb-2"></i>
+                                    <h4 class="fw-bold text-success">Herbivora</h4>
+                                    <p class="fs-6">Hewan pemakan <strong>tumbuhan</strong>.</p>
+                                    <span class="badge bg-success fs-6">Contoh: Sapi, Kelinci, Kambing</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-warning bg-opacity-10 border border-warning rounded-4 h-100">
+                                    <i class="fa-solid fa-utensils fs-1 text-warning mb-2"></i>
+                                    <h4 class="fw-bold text-warning">Omnivora</h4>
+                                    <p class="fs-6">Hewan pemakan <strong>segala</strong> (daging & tumbuhan).</p>
+                                    <span class="badge bg-warning text-dark fs-6">Contoh: Ayam, Beruang, Bebek</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. IPS Content: 8 Planet Tata Surya -->
+                    <div id="tab-materi-ips" class="materi-tab-pane hidden">
+                        <h3 class="text-primary fw-bold mb-2">Mengenal 8 Planet Tata Surya <i class="fa-solid fa-earth-americas text-primary ms-1"></i></h3>
+                        <p class="fs-6 mb-3">Matahari adalah pusat tata surya kita yang dikelilingi oleh 8 planet utama berurutan:</p>
+                        <div class="row g-2 text-center">
+                            <div class="col-6 col-md-3">
+                                <div class="p-2 border rounded-4 bg-light shadow-sm">
+                                    <i class="fa-solid fa-circle-dot fs-3 text-secondary mb-1"></i>
+                                    <h6 class="fw-bold mb-0">1. Merkurius</h6>
+                                    <small class="text-muted">Planet terkecil & terdekat</small>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-2 border rounded-4 bg-light shadow-sm">
+                                    <i class="fa-solid fa-sun fs-3 text-warning mb-1"></i>
+                                    <h6 class="fw-bold mb-0">2. Venus</h6>
+                                    <small class="text-muted">Planet paling panas</small>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-2 border rounded-4 bg-light shadow-sm">
+                                    <i class="fa-solid fa-earth-americas fs-3 text-primary mb-1"></i>
+                                    <h6 class="fw-bold mb-0">3. Bumi</h6>
+                                    <small class="text-muted">Tempat kita tinggal</small>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-2 border rounded-4 bg-light shadow-sm">
+                                    <i class="fa-solid fa-meteor fs-3 text-danger mb-1"></i>
+                                    <h6 class="fw-bold mb-0">4. Mars</h6>
+                                    <small class="text-muted">Planet Merah</small>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-2 border rounded-4 bg-light shadow-sm">
+                                    <i class="fa-solid fa-globe fs-3 text-warning mb-1"></i>
+                                    <h6 class="fw-bold mb-0">5. Jupiter</h6>
+                                    <small class="text-muted">Planet terbesar</small>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-2 border rounded-4 bg-light shadow-sm">
+                                    <i class="fa-solid fa-ring fs-3 text-warning mb-1"></i>
+                                    <h6 class="fw-bold mb-0">6. Saturnus</h6>
+                                    <small class="text-muted">Planet bercincin</small>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-2 border rounded-4 bg-light shadow-sm">
+                                    <i class="fa-solid fa-snowflake fs-3 text-info mb-1"></i>
+                                    <h6 class="fw-bold mb-0">7. Uranus</h6>
+                                    <small class="text-muted">Planet es miring</small>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="p-2 border rounded-4 bg-light shadow-sm">
+                                    <i class="fa-solid fa-wind fs-3 text-primary mb-1"></i>
+                                    <h6 class="fw-bold mb-0">8. Neptunus</h6>
+                                    <small class="text-muted">Planet terjauh</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. PKN Content: 5 Sila Pancasila -->
+                    <div id="tab-materi-pkn" class="materi-tab-pane hidden">
+                        <h3 class="text-primary fw-bold mb-2">5 Sila Pancasila & Simbolnya <i class="fa-solid fa-flag text-danger ms-1"></i></h3>
+                        <p class="fs-6 mb-3">Pancasila adalah dasar negara Indonesia yang terdiri dari 5 sila beserta lambangnya:</p>
+                        <div class="row g-2 text-start fs-6">
+                            <div class="col-12 col-md-6">
+                                <div class="p-2 bg-light border rounded-3 d-flex align-items-center">
+                                    <i class="fa-solid fa-star text-warning me-3 fs-3"></i>
+                                    <div><strong>Sila 1: Bintang</strong><br><small class="text-muted">Ketuhanan Yang Maha Esa</small></div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="p-2 bg-light border rounded-3 d-flex align-items-center">
+                                    <i class="fa-solid fa-link text-secondary me-3 fs-3"></i>
+                                    <div><strong>Sila 2: Rantai Emas</strong><br><small class="text-muted">Kemanusiaan yang Adil dan Beradab</small></div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="p-2 bg-light border rounded-3 d-flex align-items-center">
+                                    <i class="fa-solid fa-tree text-success me-3 fs-3"></i>
+                                    <div><strong>Sila 3: Pohon Beringin</strong><br><small class="text-muted">Persatuan Indonesia</small></div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="p-2 bg-light border rounded-3 d-flex align-items-center">
+                                    <i class="fa-solid fa-cow text-danger me-3 fs-3"></i>
+                                    <div><strong>Sila 4: Kepala Banteng</strong><br><small class="text-muted">Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan...</small></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="p-2 bg-light border rounded-3 d-flex align-items-center">
+                                    <i class="fa-solid fa-wheat-awn text-warning me-3 fs-3"></i>
+                                    <div><strong>Sila 5: Padi dan Kapas</strong><br><small class="text-muted">Keadilan Sosial bagi Seluruh Rakyat Indonesia</small></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. MTK Content: Berhitung & Operasi Dasar -->
+                    <div id="tab-materi-mtk" class="materi-tab-pane hidden">
+                        <h3 class="text-primary fw-bold">Penjumlahan, Pengurangan, Perkalian & Pembagian <i class="fa-solid fa-calculator text-success ms-1"></i></h3>
+                        <p class="fs-6">Mari belajar konsep dasar berhitung matematika!</p>
+                        <div class="row g-2 text-center mt-1 fs-6">
+                            <div class="col-md-3">
+                                <div class="p-2 bg-info bg-opacity-10 rounded-4 border border-info h-100">
+                                    <h5 class="fw-bold text-info">Penjumlahan (+)</h5>
+                                    <p class="mb-1">2 + 3 = <strong>5</strong></p>
+                                    <small class="text-muted">Menggabungkan dua angka</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-2 bg-danger bg-opacity-10 rounded-4 border border-danger h-100">
+                                    <h5 class="fw-bold text-danger">Pengurangan (-)</h5>
+                                    <p class="mb-1">8 - 3 = <strong>5</strong></p>
+                                    <small class="text-muted">Mengambil dari sisa angka</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-2 bg-warning bg-opacity-10 rounded-4 border border-warning h-100">
+                                    <h5 class="fw-bold text-warning">Perkalian (x)</h5>
+                                    <p class="mb-1">4 x 2 = <strong>8</strong></p>
+                                    <small class="text-muted">Penjumlahan berulang</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-2 bg-success bg-opacity-10 rounded-4 border border-success h-100">
+                                    <h5 class="fw-bold text-success">Pembagian (÷)</h5>
+                                    <p class="mb-1">10 ÷ 2 = <strong>5</strong></p>
+                                    <small class="text-muted">Membagi menjadi bagian sama</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- VIEW 3: KUIS ENGINE (BERSAMA UNTUK MATEMATIKA DAN PENGETAHUAN UMUM) -->
+            <div id="view-kuis" class="game-window hidden my-auto">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <span class="fs-5 fw-bold me-3" id="quiz-title-badge">Kuis</span>
+                        <span class="fs-5 fw-bold me-3">Skor: <span id="quiz-score" class="text-success">0</span></span>
+                        <span id="quiz-lives">
+                            <i class="fa-solid fa-heart heart-icon me-1"></i>
+                            <i class="fa-solid fa-heart heart-icon me-1"></i>
+                            <i class="fa-solid fa-heart heart-icon me-1"></i>
+                        </span>
+                    </div>
+                    <button class="btn btn-back" onclick="showMainMenu()"><i class="fa-solid fa-house me-1"></i> Keluar</button>
+                </div>
+
+                <!-- Quiz Progress Bar -->
+                <div class="progress mb-3" style="height: 12px; border-radius: 10px;">
+                    <div id="quiz-progress" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                </div>
+
+                <!-- Quiz Question Box -->
+                <div id="quiz-box">
+                    <div class="card border-0 bg-light p-3 rounded-4 mb-3 text-center shadow-sm">
+                        <h4 id="quiz-question" class="fw-bold text-dark m-0">Pertanyaan Kuis Akan Muncul di Sini...</h4>
+                    </div>
+                    <div id="quiz-options" class="row row-cols-1 row-cols-md-2 g-2">
+                        <!-- Options generated by JS -->
+                    </div>
+                </div>
+
+                <!-- Quiz Result Screen -->
+                <div id="quiz-result" class="text-center py-3 hidden">
+                    <div class="display-2 text-warning mb-2" id="result-icon-box">
+                        <i id="result-icon" class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="fw-bold mb-2" id="result-title">Petualangan Selesai!</h3>
+                    <p class="fs-5 mb-3">Skor Akhir Kamu: <strong id="result-score" class="text-primary fs-3">0</strong></p>
+                    <button class="btn btn-custom btn-mulai px-4 py-2 w-auto" id="btn-restart-quiz">
+                        <i class="fa-solid fa-rotate-right me-2"></i> Main Lagi
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 4: PERMAINAN / MINI-GAME -->
+            <div id="view-permainan" class="game-window hidden my-auto">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h3 class="fw-bold text-purple m-0"><i class="fa-solid fa-gamepad me-2"></i>Game Cocokkan Kartu</h3>
+                    <button class="btn btn-back" onclick="showMainMenu()"><i class="fa-solid fa-house me-1"></i> Kembali</button>
+                </div>
+                <p class="text-center fs-6 text-muted mb-3">Temukan 4 pasang hewan yang sama!</p>
+
+                <div class="row g-2 justify-content-center mx-auto" id="memory-board" style="max-width: 450px;">
+                    <!-- Memory Cards Dynamic Injection -->
+                </div>
+
+                <div id="game-win-message" class="text-center mt-3 hidden">
+                    <div class="alert alert-success rounded-4 fw-bold fs-5 py-2">
+                        <i class="fa-solid fa-champagne-glasses me-2"></i> Hore! Kamu Berhasil Menyelesaikan Permainan!
+                    </div>
+                    <button class="btn btn-custom btn-permainan w-auto px-4 py-2" onclick="initMemoryGame()">Main Lagi</button>
+                </div>
+            </div>
+
+          <!-- FOOTER SLOGAN BOARD -->
+<div class="row justify-content-center">
+    <div class="col-auto text-center">
+        <div class="wood-footer">
+            <i class="fa-solid fa-star text-warning me-2"></i>
+            <span>Belajar Seru Bersama Teknologi!</span>
+            <i class="fa-solid fa-star text-warning ms-2"></i>
+        </div>
+        <div class="powered-by-text">
+            Powered by <strong>Mohammad Dani Ferdiansyah</strong>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /* ===================================================
+           SOUND EFFECTS ENGINE (Web Audio API Synthesizer)
+        =================================================== */
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                osc.start(now);
+                osc.stop(now + 0.05);
+            } else if (type === 'correct') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.1);
+                osc.frequency.setValueAtTime(783.99, now + 0.2);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(250, now);
+                osc.frequency.setValueAtTime(150, now + 0.15);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'win') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(1000, now + 0.5);
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                osc.start(now);
+                osc.stop(now + 0.5);
+            }
+        }
+
+        /* ===================================================
+           NAVIGATION / SINGLE PAGE VIEW SWITCHER
+        =================================================== */
+        function hideAllViews() {
+            document.getElementById('view-main-menu').classList.add('hidden');
+            document.getElementById('view-materi').classList.add('hidden');
+            document.getElementById('view-kuis').classList.add('hidden');
+            document.getElementById('view-permainan').classList.add('hidden');
+        }
+
+        function showMainMenu() {
+            playSound('click');
+            hideAllViews();
+            document.getElementById('view-main-menu').classList.remove('hidden');
+        }
+
+        function openSection(section) {
+            playSound('click');
+            hideAllViews();
+
+            if (section === 'mulai') {
+                // MULAI = Kuis Matematika Berhitung Cepat
+                startMathQuiz();
+                document.getElementById('view-kuis').classList.remove('hidden');
+            } else if (section === 'materi') {
+                document.getElementById('view-materi').classList.remove('hidden');
+            } else if (section === 'kuis') {
+                // KUIS = Kuis Pengetahuan Umum
+                startGeneralQuiz();
+                document.getElementById('view-kuis').classList.remove('hidden');
+            } else if (section === 'permainan') {
+                initMemoryGame();
+                document.getElementById('view-permainan').classList.remove('hidden');
+            }
+        }
+
+        /* ===================================================
+           TAB MATERI SWITCHER ENGINE
+        =================================================== */
+        function switchMateriTab(tabName, btnEl) {
+            playSound('click');
+            const panes = document.querySelectorAll('.materi-tab-pane');
+            panes.forEach(pane => pane.classList.add('hidden'));
+
+            const links = document.querySelectorAll('.nav-link-custom');
+            links.forEach(link => link.classList.remove('active'));
+
+            document.getElementById(`tab-materi-${tabName}`).classList.remove('hidden');
+            btnEl.classList.add('active');
+        }
+
+        /* ===================================================
+           BANK SOAL MATEMATIKA (BANYAK SOAL BANYAK VARIASI)
+        =================================================== */
+        const mathQuizQuestions = [
+            // Penjumlahan & Pengurangan
+            { question: "Berapakah hasil dari 15 + 8 ?", options: ["21", "23", "22", "25"], answer: 1 },
+            { question: "Berapakah hasil dari 45 - 17 ?", options: ["28", "25", "30", "27"], answer: 0 },
+            { question: "Berapakah hasil dari 32 + 24 ?", options: ["54", "56", "58", "60"], answer: 1 },
+            { question: "Berapakah hasil dari 80 - 35 ?", options: ["40", "45", "50", "42"], answer: 1 },
+            { question: "Berapakah hasil dari 27 + 19 ?", options: ["46", "44", "48", "45"], answer: 0 },
+            { question: "Berapakah hasil dari 63 - 28 ?", options: ["33", "35", "37", "30"], answer: 1 },
+            
+            // Perkalian
+            { question: "Berapakah hasil dari 6 x 4 ?", options: ["20", "24", "28", "22"], answer: 1 },
+            { question: "Berapakah hasil dari 7 x 5 ?", options: ["30", "35", "40", "25"], answer: 1 },
+            { question: "Berapakah hasil dari 8 x 3 ?", options: ["24", "21", "27", "26"], answer: 0 },
+            { question: "Berapakah hasil dari 9 x 4 ?", options: ["32", "36", "40", "34"], answer: 1 },
+            { question: "Berapakah hasil dari 5 x 8 ?", options: ["35", "40", "45", "50"], answer: 1 },
+            { question: "Berapakah hasil dari 7 x 6 ?", options: ["42", "36", "48", "44"], answer: 0 },
+
+            // Pembagian
+            { question: "Berapakah hasil pembagian 20 ÷ 4 ?", options: ["4", "5", "6", "3"], answer: 1 },
+            { question: "Berapakah hasil pembagian 36 ÷ 6 ?", options: ["5", "6", "7", "8"], answer: 1 },
+            { question: "Berapakah hasil pembagian 45 ÷ 5 ?", options: ["8", "9", "7", "10"], answer: 1 },
+            { question: "Berapakah hasil pembagian 28 ÷ 7 ?", options: ["3", "4", "5", "6"], answer: 1 },
+            { question: "Berapakah hasil pembagian 50 ÷ 10 ?", options: ["4", "5", "6", "7"], answer: 1 },
+            { question: "Berapakah hasil pembagian 40 ÷ 8 ?", options: ["4", "5", "6", "8"], answer: 1 },
+            { question: "Berapakah hasil pembagian 18 ÷ 3 ?", options: ["5", "6", "7", "4"], answer: 1 },
+            { question: "Berapakah hasil pembagian 64 ÷ 8 ?", options: ["7", "8", "9", "6"], answer: 1 }
+        ];
+
+        /* ===================================================
+           BANK SOAL KUIS PENGETAHUAN UMUM
+        =================================================== */
+        const generalQuizQuestions = [
+            { question: "Hewan apa yang mengalami fase perubahan dari Ulat menjadi Kepompong?", options: ["Katak", "Kupu-Kupu", "Ayam", "Belalang"], answer: 1 },
+            { question: "Planet manakah yang menjadi tempat tinggal manusia?", options: ["Mars", "Jupiter", "Bumi", "Saturnus"], answer: 2 },
+            { question: "Hewan pemakan daging disebut juga dengan istilah...", options: ["Herbivora", "Karnivora", "Omnivora", "Insectivora"], answer: 1 },
+            { question: "Simbol Sila Pertama dari Pancasila adalah...", options: ["Pohon Beringin", "Kepala Banteng", "Bintang", "Rantai"], answer: 2 },
+            { question: "Planet apakah yang dijuluki sebagai 'Planet Merah'?", options: ["Venus", "Mars", "Uranus", "Neptunus"], answer: 1 },
+            { question: "Simbol Sila Kelima Pancasila adalah...", options: ["Bintang", "Padi dan Kapas", "Kepala Banteng", "Rantai Emas"], answer: 1 },
+            { question: "Sapi, Kambing, dan Kelinci termasuk kelompok hewan...", options: ["Karnivora", "Herbivora", "Omnivora", "Amfibi"], answer: 1 },
+            { question: "Planet manakah yang terbesar dalam sistem Tata Surya?", options: ["Bumi", "Saturnus", "Jupiter", "Neptunus"], answer: 2 },
+            { question: "Simbol Sila Ketiga Pancasila (Persatuan Indonesia) adalah...", options: ["Pohon Beringin", "Bintang", "Rantai", "Kepala Banteng"], answer: 0 },
+            { question: "Ayam dan Beruang yang memakan tumbuhan dan daging disebut...", options: ["Herbivora", "Karnivora", "Omnivora", "Reptile"], answer: 2 },
+            { question: "Planet yang terkenal memiliki cincin indah mengelilinginya adalah...", options: ["Mars", "Saturnus", "Venus", "Merkurius"], answer: 1 },
+            { question: "Sila Kedua Pancasila melambangkan kemanusiaan dengan simbol...", options: ["Pohon Beringin", "Rantai Emas", "Bintang", "Padi Kapas"], answer: 1 },
+            { question: "Planet terdekat dari Matahari adalah...", options: ["Bumi", "Venus", "Merkurius", "Neptunus"], answer: 2 },
+            { question: "Sila Keempat Pancasila dilambangkan dengan simbol...", options: ["Kepala Banteng", "Bintang", "Pohon Beringin", "Rantai"], answer: 0 },
+            { question: "Tahapan metamorfosis kupu-kupu setelah telur menetas adalah...", options: ["Kepompong", "Ulat (Larva)", "Kupu-kupu Muda", "Kupu-kupu Dewasa"], answer: 1 },
+            { question: "Planet paling jauh dari Matahari dalam sistem 8 planet adalah...", options: ["Uranus", "Saturnus", "Neptunus", "Jupiter"], answer: 2 }
+        ];
+
+        let activeQuizList = [];
+        let currentQuestionIdx = 0;
+        let score = 0;
+        let lives = 3;
+        let currentQuizType = 'math';
+
+        function startMathQuiz() {
+            currentQuizType = 'math';
+            document.getElementById('quiz-title-badge').innerText = "🧮 Kuis Matematika";
+            document.getElementById('btn-restart-quiz').onclick = startMathQuiz;
+            activeQuizList = [...mathQuizQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
+            initQuizEngine();
+        }
+
+        function startGeneralQuiz() {
+            currentQuizType = 'general';
+            document.getElementById('quiz-title-badge').innerText = "🏆 Kuis Pengetahuan";
+            document.getElementById('btn-restart-quiz').onclick = startGeneralQuiz;
+            activeQuizList = [...generalQuizQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
+            initQuizEngine();
+        }
+
+        function initQuizEngine() {
+            currentQuestionIdx = 0;
+            score = 0;
+            lives = 3;
+            document.getElementById('quiz-score').innerText = score;
+            document.getElementById('quiz-box').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            updateLivesDisplay();
+            loadQuestion();
+        }
+
+        function updateLivesDisplay() {
+            let heartsHtml = '';
+            for (let i = 0; i < lives; i++) {
+                heartsHtml += '<i class="fa-solid fa-heart heart-icon me-1"></i>';
+            }
+            document.getElementById('quiz-lives').innerHTML = heartsHtml;
+        }
+
+        function loadQuestion() {
+            const q = activeQuizList[currentQuestionIdx];
+            document.getElementById('quiz-question').innerText = `${currentQuestionIdx + 1}. ${q.question}`;
+            
+            const progressPercent = ((currentQuestionIdx) / activeQuizList.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${progressPercent}%`;
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const col = document.createElement('div');
+                col.className = 'col';
+                col.innerHTML = `
+                    <div class="quiz-option" onclick="checkAnswer(${idx}, this)">
+                        <span class="badge bg-primary rounded-circle me-3">${String.fromCharCode(65 + idx)}</span>
+                        ${opt}
+                    </div>
+                `;
+                optionsContainer.appendChild(col);
+            });
+        }
+
+        function checkAnswer(selectedIdx, element) {
+            const q = activeQuizList[currentQuestionIdx];
+            const allOptions = document.querySelectorAll('.quiz-option');
+            
+            allOptions.forEach(opt => opt.style.pointerEvents = 'none');
+
+            if (selectedIdx === q.answer) {
+                element.classList.add('correct');
+                playSound('correct');
+                score += 10;
+                document.getElementById('quiz-score').innerText = score;
+            } else {
+                element.classList.add('wrong');
+                allOptions[q.answer].classList.add('correct');
+                playSound('wrong');
+                lives--;
+                updateLivesDisplay();
+            }
+
+            setTimeout(() => {
+                if (lives <= 0 || currentQuestionIdx >= activeQuizList.length - 1) {
+                    showQuizResult();
+                } else {
+                    currentQuestionIdx++;
+                    loadQuestion();
+                }
+            }, 1200);
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-box').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            document.getElementById('quiz-progress').style.width = `100%`;
+
+            document.getElementById('result-score').innerText = score;
+            const iconEl = document.getElementById('result-icon');
+            
+            if (score >= 80) {
+                playSound('win');
+                iconEl.className = 'fa-solid fa-trophy text-warning';
+                document.getElementById('result-title').innerText = 'Luar Biasa! Kamu Hebat!';
+            } else if (score >= 50) {
+                playSound('win');
+                iconEl.className = 'fa-solid fa-star text-warning';
+                document.getElementById('result-title').innerText = 'Bagus Sekali! Tingkatkan Lagi!';
+            } else {
+                playSound('wrong');
+                iconEl.className = 'fa-solid fa-shield-halved text-danger';
+                document.getElementById('result-title').innerText = 'Jangan Menyerah, Coba Lagi Ya!';
+            }
+        }
+
+        /* ===================================================
+           PERMAINAN ENGINE (Memory Matching Card Game)
+        =================================================== */
+        const memoryIcons = [
+            'fa-dog text-warning', 
+            'fa-cat text-danger', 
+            'fa-hippo text-primary', 
+            'fa-otter text-success', 
+            'fa-dog text-warning', 
+            'fa-cat text-danger', 
+            'fa-hippo text-primary', 
+            'fa-otter text-success'
+        ];
+        let flippedCards = [];
+        let matchedPairs = 0;
+
+        function initMemoryGame() {
+            const board = document.getElementById('memory-board');
+            board.innerHTML = '';
+            document.getElementById('game-win-message').classList.add('hidden');
+            flippedCards = [];
+            matchedPairs = 0;
+
+            const shuffled = [...memoryIcons].sort(() => Math.random() - 0.5);
+
+            shuffled.forEach((iconClass, index) => {
+                const cardCol = document.createElement('div');
+                cardCol.className = 'col-3';
+                cardCol.innerHTML = `
+                    <div class="memory-card" data-icon="${iconClass}" data-id="${index}" onclick="flipCard(this)">
+                        <span class="card-content hidden"><i class="fa-solid ${iconClass}"></i></span>
+                        <i class="fa-solid fa-question text-white default-icon"></i>
+                    </div>
+                `;
+                board.appendChild(cardCol);
+            });
+        }
+
+        function flipCard(cardEl) {
+            if (flippedCards.length >= 2 || cardEl.classList.contains('flipped') || cardEl.classList.contains('matched')) {
+                return;
+            }
+
+            playSound('click');
+            cardEl.classList.add('flipped');
+            cardEl.querySelector('.card-content').classList.remove('hidden');
+            cardEl.querySelector('.default-icon').classList.add('hidden');
+            flippedCards.push(cardEl);
+
+            if (flippedCards.length === 2) {
+                const [card1, card2] = flippedCards;
+                const icon1 = card1.getAttribute('data-icon');
+                const icon2 = card2.getAttribute('data-icon');
+
+                if (icon1 === icon2) {
+                    playSound('correct');
+                    card1.classList.add('matched');
+                    card2.classList.add('matched');
+                    flippedCards = [];
+                    matchedPairs++;
+
+                    if (matchedPairs === memoryIcons.length / 2) {
+                        setTimeout(() => {
+                            playSound('win');
+                            document.getElementById('game-win-message').classList.remove('hidden');
+                        }, 500);
+                    }
+                } else {
+                    playSound('wrong');
+                    setTimeout(() => {
+                        card1.classList.remove('flipped');
+                        card2.classList.remove('flipped');
+                        card1.querySelector('.card-content').classList.add('hidden');
+                        card1.querySelector('.default-icon').classList.remove('hidden');
+                        card2.querySelector('.card-content').classList.add('hidden');
+                        card2.querySelector('.default-icon').classList.remove('hidden');
+                        flippedCards = [];
+                    }, 800);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
