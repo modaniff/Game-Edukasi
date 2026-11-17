@@ -314,7 +314,7 @@
             .btn-custom { font-size: 0.95rem; }
         }
         
-        .powered-by-text {
+       .powered-by-text {
     color: #ffffff;
     font-size: 0.85rem;
     font-weight: 600;
@@ -322,6 +322,21 @@
     margin-top: 4px;
     margin-bottom: 6px;
     letter-spacing: 0.5px;
+}
+
+.developer-link {
+    color: #36c54b;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.developer-link:hover {
+    color: #ffffff;
+    transform: scale(1.05);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
     </style>
@@ -356,7 +371,7 @@
                         <div class="icon-box text-success">
                             <i class="fa-solid fa-calculator"></i>
                         </div>
-                        <button class="btn btn-custom btn-mulai">MARI BERHITUNG</button>
+                        <button class="btn btn-custom btn-mulai">AYO BERHITUNG</button>
                     </div>
                 </div>
 
@@ -685,26 +700,75 @@
                 </div>
             </div>
 
-          <!-- FOOTER SLOGAN BOARD -->
-<div class="row justify-content-center">
-    <div class="col-auto text-center">
-        <div class="wood-footer">
-            <i class="fa-solid fa-star text-warning me-2"></i>
-            <span>Belajar Itu Seru!</span>
-            <i class="fa-solid fa-star text-warning ms-2"></i>
+<!-- FOOTER SLOGAN BOARD -->
+        <div class="row justify-content-center">
+            <div class="col-auto text-center">
+                <div class="wood-footer">
+                    <i class="fa-solid fa-star text-warning me-2"></i>
+                    <span>Belajar Seru Bersama Teknologi!</span>
+                    <i class="fa-solid fa-star text-warning ms-2"></i>
+                </div>
+                <!-- LINK NAMA PEMBUAT (BISA DIKLIK) -->
+                <div class="powered-by-text">
+                    Powered by 
+                    <span class="developer-link" data-bs-toggle="modal" data-bs-target="#profileModal" onclick="playSound('click')">
+                        <strong>Mohammad Dani Ferdiansyah</strong></i>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="powered-by-text">
-            Powered by <strong>Mohammad Dani Ferdiansyah</strong>
+
+    </div> <!-- Akhir dari div.jungle-bg -->
+
+
+    <!-- MODAL PROFIL PEMBUAT (DITARUH DI LUAR JUNGLE-BG) -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header bg-success text-white rounded-top-4">
+                    <h5 class="modal-title fw-bold">
+                        <i class="fa-solid fa-id-card me-2"></i>Profil Pengembang Aplikasi
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <div class="mb-3">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-warning bg-opacity-25 border border-warning rounded-circle p-3 shadow-sm" style="width: 100px; height: 100px;">
+                            <i class="fa-solid fa-user-gear display-3 text-warning"></i>
+                        </div>
+                    </div>
+                    
+                    <h4 class="fw-bold text-dark mb-1">Mohammad Dani Ferdiansyah</h4>
+                    <p class="badge bg-primary fs-6 mb-3">Mahasiswa</p>
+                    
+                    <div class="text-start bg-light p-3 rounded-4 border">
+                        <div class="mb-2">
+                            <i class="fa-solid fa-graduation-cap text-success me-2"></i>
+                            <strong>Program Studi:</strong> Teknik Informatika
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-building-columns text-danger me-2"></i>
+                            <strong>Universitas:</strong> Universitas Trunojoyo Madura
+                        </div>
+
+                        <div>
+                        <i class="fa-solid fa-user-graduate text-primary me-2"></i>
+                        <strong>Status:</strong>
+                        <span class="badge bg-success">Mahasiswa Aktif Semester 5</span>
+                    </div>
+
+                    </div>
+
+                    <div class="mt-4 text-muted small">
+                        <i class="fa-solid fa-code me-1"></i> Dibuat dengan HTML5, CSS3, Bootstrap 5, dan JavaScript
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-        </div>
-    </div>
-
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
-
+    <!-- Bootstrap 5 JS (WAJIB ADA AGAR MODAL BISA DIKLIK) -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         /* ===================================================
            SOUND EFFECTS ENGINE (Web Audio API Synthesizer)
