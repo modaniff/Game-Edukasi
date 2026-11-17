@@ -942,7 +942,7 @@
 
         function startGeneralQuiz() {
             currentQuizType = 'general';
-            document.getElementById('quiz-title-badge').innerText = "🏆 Kuis Pengetahuan";
+            document.getElementById('quiz-title-badge').innerText = "🏆 Kuis Wawasan";
             document.getElementById('btn-restart-quiz').onclick = startGeneralQuiz;
             activeQuizList = [...generalQuizQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
             initQuizEngine();
